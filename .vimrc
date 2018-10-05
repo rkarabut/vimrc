@@ -25,7 +25,7 @@ call vundle#begin()
     " Misc
     "Plugin 'vim-scripts/vimwiki'
     Plugin 'scrooloose/nerdtree'
-    Plugin 'scroolose/nerdcommenter'
+    Plugin 'scrooloose/nerdcommenter'
     Plugin 'vim-airline/vim-airline'
     "Plugin 'scrooloose/syntastic'
 "    Plugin 'beloglazov/vim-online-thesaurus'  
