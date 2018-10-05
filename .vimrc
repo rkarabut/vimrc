@@ -25,9 +25,10 @@ call vundle#begin()
     " Misc
     "Plugin 'vim-scripts/vimwiki'
     Plugin 'scrooloose/nerdtree'
+    Plugin 'scroolose/nerdcommenter'
     Plugin 'vim-airline/vim-airline'
     "Plugin 'scrooloose/syntastic'
-"    Plugin 'beloglazov/vim-online-thesaurus'   
+"    Plugin 'beloglazov/vim-online-thesaurus'  
     Plugin 'tpope/vim-surround'
     Plugin 'tpope/vim-repeat'
     Plugin 'ctrlpvim/ctrlp.vim'
@@ -80,6 +81,7 @@ syntax on
 " Airline
 set laststatus=2    " status bar always enabled
 let g:airline#extensions#wordcount#enabled = 1
+let g:airline_powerline_fonts = 1
 
 "set ttyfast
 set mouse=a
@@ -113,6 +115,9 @@ vmap <c-t> :tabnew<cr>
 "set omnifunc=syntaxcomplete#Complete
 
 ":autocmd VimEnter * :AirlineRefresh
+
+" remove end-of-line whitespace in Scala
+autocmd FileType scala autocmd BufWritePre <buffer> %s/\s\+$//e
 
 " retain visual selection after indenting:
 vnoremap > >gv
