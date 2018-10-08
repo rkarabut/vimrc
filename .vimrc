@@ -92,6 +92,11 @@ set mouse=a
 let g:ctrlp_map = '<c_p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_max_files=0
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+
+if executable('ag')
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 
 map <F3> :NERDTreeToggle<CR>
 
