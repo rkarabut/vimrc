@@ -90,7 +90,9 @@ set mouse=a
 "set clipboard=unnamed
 "let g:jedi#show_call_signatures = "2"
 
-let g:ctrlp_map = '<c-p>'
+let g:ctrlp_map = '' "'<c-p>'
+nnoremap <c-p> :NERDTreeClose\|CtrlP<CR>
+
 let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_max_files=0
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
