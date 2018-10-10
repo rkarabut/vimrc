@@ -28,11 +28,12 @@ call vundle#begin()
     Plugin 'scrooloose/nerdcommenter'
     Plugin 'vim-airline/vim-airline'
     "Plugin 'scrooloose/syntastic'
-"    Plugin 'beloglazov/vim-online-thesaurus'  
+    "Plugin 'beloglazov/vim-online-thesaurus'  
     Plugin 'tpope/vim-surround'
     Plugin 'tpope/vim-repeat'
     Plugin 'ctrlpvim/ctrlp.vim'
     Plugin 'severin-lemaignan/vim-minimap'
+
     " Clojure
     "Plugin 'tpope/vim-fireplace'
     "Plugin 'guns/vim-clojure-static'
@@ -45,7 +46,7 @@ call vundle#begin()
     "Plugin 'python-mode/python-mode'
 
     " Themes
-"    Plugin 'https://github.com/chriskempson/vim-tomorrow-theme'
+    "Plugin 'https://github.com/chriskempson/vim-tomorrow-theme'
     Plugin 'vim-airline/vim-airline-themes'
     Plugin 'croaker/mustang-vim'
 
@@ -115,9 +116,6 @@ vmap <c-t> :tabnew<cr>
 "vmap <c-tab> :tabnext<cr>
 "vmap <c-s-tab> :tabprevious<cr>
 "vmap <c-w> :tabclose
-"
-"filetype plugin on
-"set omnifunc=syntaxcomplete#Complete
 
 ":autocmd VimEnter * :AirlineRefresh
 
