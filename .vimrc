@@ -27,12 +27,23 @@ call vundle#begin()
     Plugin 'scrooloose/nerdtree'
     Plugin 'scrooloose/nerdcommenter'
     Plugin 'vim-airline/vim-airline'
-    "Plugin 'scrooloose/syntastic'
+    Plugin 'vim-syntastic/syntastic'
     "Plugin 'beloglazov/vim-online-thesaurus'  
     Plugin 'tpope/vim-surround'
     Plugin 'tpope/vim-repeat'
-    Plugin 'ctrlpvim/ctrlp.vim'
-    Plugin 'severin-lemaignan/vim-minimap'
+    "Plugin 'severin-lemaignan/vim-minimap'
+    if executable('fzf')
+        Plugin 'junegunn/fzf'
+        Plugin 'junegunn/fzf.vim'
+    else
+        Plugin 'ctrlpvim/ctrlp.vim'
+    endif
+    
+    " Snippets
+    Plugin 'SirVer/ultisnips'
+    Plugin 'honza/vim-snippets'
+    
+    "Plugin 'w0rp/ale'
 
     " Clojure
     "Plugin 'tpope/vim-fireplace'
@@ -84,15 +95,16 @@ set laststatus=2    " status bar always enabled
 let g:airline#extensions#wordcount#enabled = 1
 let g:airline_powerline_fonts = 1
 
+let g:syntastic_scala_scalastyle_jar = $HOME . '/work/scalastyle_2.12-1.0.0-batch.jar'
+let g:syntastic_scala_scalastyle_config_file = $HOME . '/work/scalastyle-config.xml'
+let g:syntastic_scala_checkers = ['fsc', 'scalac', 'scalastyle']
+
 "set ttyfast
 set mouse=a
 
 "set clipboard=unnamed
 "let g:jedi#show_call_signatures = "2"
-
-let g:ctrlp_map = '' "'<c-p>'
-nnoremap <c-p> :NERDTreeClose\|CtrlP<CR>
-
+let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_max_files=0
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
@@ -100,6 +112,20 @@ let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
+
+let g:fzf_command_prefix = 'Fzf'
+if executable('fzf')
+    nnoremap <leader>j :call fzf#vim#tags("'".expand('<cword>'))<cr>
+    map <c-h> :FzfHistory<cr>
+    map <c-p> :FzfFiles<cr>
+    map <Leader>b :FzfBuffers<cr>
+    command! -bang -nargs=* FzfAg call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
+    map <Leader>a :FzfAg<cr>
+    map <Leader>l :FzfBLines<cr>
+    map <Leader>r :FzfRg<cr>
+endif
+    
+map <bs> :pop<cr>
 
 map <F3> :NERDTreeToggle<CR>
 
@@ -123,6 +149,9 @@ vmap <c-t> :tabnew<cr>
 
 " remove end-of-line whitespace in Scala
 autocmd FileType scala autocmd BufWritePre <buffer> %s/\s\+$//e
+
+let g:scala_sort_across_groups=1
+" autocmd FileType scala autocmd BufWritePre <buffer> :SortScalaImports
 
 " retain visual selection after indenting:
 vnoremap > >gv
