@@ -114,6 +114,7 @@ if executable('ag')
 endif
 
 let g:fzf_command_prefix = 'Fzf'
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 if executable('fzf')
     nnoremap <leader>j :call fzf#vim#tags("'".expand('<cword>'))<cr>
     map <c-h> :FzfHistory<cr>
