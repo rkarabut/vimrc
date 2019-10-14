@@ -44,7 +44,8 @@ call vundle#begin()
     " Snippets
     Plugin 'SirVer/ultisnips'
     Plugin 'honza/vim-snippets'
-    
+
+    Bundle 'spiroid/vim-ultisnip-scala'
     "Plugin 'w0rp/ale'
 
     " Clojure
