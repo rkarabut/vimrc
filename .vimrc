@@ -17,6 +17,7 @@ call vundle#begin()
 
     " Markdown
     Plugin 'tpope/vim-markdown'
+    Plugin 'junegunn/goyo.vim'
     "Plugin 'nelstrom/vim-markdown-folding'
 
     " Git
@@ -24,6 +25,7 @@ call vundle#begin()
 
     " Misc
     "Plugin 'vim-scripts/vimwiki'
+    Plugin 'maxbrunsfeld/vim-yankstack'
     Plugin 'scrooloose/nerdtree'
     Plugin 'scrooloose/nerdcommenter'
     Plugin 'vim-airline/vim-airline'
@@ -145,6 +147,11 @@ vmap <c-t> :tabnew<cr>
 "vmap <c-tab> :tabnext<cr>
 "vmap <c-s-tab> :tabprevious<cr>
 "vmap <c-w> :tabclose
+
+"jump to latest position
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 
 ":autocmd VimEnter * :AirlineRefresh
 
