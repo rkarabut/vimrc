@@ -44,8 +44,7 @@ call vundle#begin()
     " Snippets
     Plugin 'SirVer/ultisnips'
     Plugin 'honza/vim-snippets'
-
-    Bundle 'spiroid/vim-ultisnip-scala'
+    
     "Plugin 'w0rp/ale'
 
     " Clojure
@@ -58,6 +57,9 @@ call vundle#begin()
 
     " Python
     "Plugin 'python-mode/python-mode'
+
+    " Rust
+    Plugin 'rust-lang/rust.vim'
 
     " Themes
     "Plugin 'https://github.com/chriskempson/vim-tomorrow-theme'
@@ -161,6 +163,9 @@ autocmd FileType scala autocmd BufWritePre <buffer> %s/\s\+$//e
 
 let g:scala_sort_across_groups=1
 " autocmd FileType scala autocmd BufWritePre <buffer> :SortScalaImports
+
+" set rust src path for YCM
+let g:ycm_rust_src_path = '/home/tr/work/rust/src'
 
 " retain visual selection after indenting:
 vnoremap > >gv
