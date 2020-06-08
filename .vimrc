@@ -25,7 +25,6 @@ call vundle#begin()
 
     " Misc
     "Plugin 'vim-scripts/vimwiki'
-    Plugin 'maxbrunsfeld/vim-yankstack'
     Plugin 'scrooloose/nerdtree'
     Plugin 'scrooloose/nerdcommenter'
     Plugin 'vim-airline/vim-airline'
@@ -33,6 +32,7 @@ call vundle#begin()
     "Plugin 'beloglazov/vim-online-thesaurus'  
     Plugin 'tpope/vim-surround'
     Plugin 'tpope/vim-repeat'
+	Plugin 'tpope/vim-eunuch'
     "Plugin 'severin-lemaignan/vim-minimap'
     if executable('fzf')
         Plugin 'junegunn/fzf'
@@ -61,17 +61,25 @@ call vundle#begin()
     " Rust
     Plugin 'rust-lang/rust.vim'
 
+	" Writing
+	Plugin 'reedes/vim-pencil'
+
     " Themes
     "Plugin 'https://github.com/chriskempson/vim-tomorrow-theme'
     Plugin 'vim-airline/vim-airline-themes'
     Plugin 'croaker/mustang-vim'
 
+	" Nav
+	Plugin 'easymotion/vim-easymotion'
+
+	Plugin 'majutsushi/tagbar'
 call vundle#end()
 
 filetype plugin indent on
 
-set nocompatible    " vim only
+"set nocompatible " already set
 set backspace=indent,eol,start  " allow backspace in insert mode
+
 set expandtab
 set tabstop=4       " smaller tabs
 set shiftwidth=4
@@ -91,6 +99,7 @@ set undolevels=1000
 set pastetoggle=<F2>
 filetype plugin indent on   " language-dependent indenting 
 
+set term=xterm
 set t_Co=256
 colorscheme mustang
 syntax on
@@ -128,12 +137,21 @@ if executable('fzf')
     command! -bang -nargs=* FzfAg call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
     map <Leader>a :FzfAg<cr>
     map <Leader>l :FzfBLines<cr>
+    map <Leader>/ :FzfBLines<cr>
     map <Leader>r :FzfRg<cr>
 endif
+
+let g:EasyMotion_do_mapping=0 " disable default mappings
+let g:EasyMotion_smartcase=1  " enable case-insensitive search
+nmap s <Plug>(easymotion-overwin-f2)
+nmap , <Plug>(easymotion-bd-w)
     
 map <bs> :pop<cr>
 
 map <F3> :NERDTreeToggle<CR>
+
+let g:tagbar_autoclose=1
+map <F8> :TagbarToggle<CR>
 
 vmap <tab> >gv
 vmap <s-tab> <gv
@@ -175,6 +193,19 @@ vnoremap < <gv
 set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0
-map <capslock> <c-^>
+
+set paste
 
 au VimEnter * RainbowParenthesesToggle
+
+noremap <M-LeftMouse> <4-LeftMouse>
+inoremap <M-LeftMouse> <4-LeftMouse>
+onoremap <M-LeftMouse> <C-C><4-LeftMouse>
+noremap <M-LeftDrag> <4-LeftDrag>
+inoremap <M-LeftDrag> <4-LeftDrag>
+onoremap <M-LeftDrag> <C-C><4-LeftDrag>
+
+" fixes NerdTree not working in xterm (jumper problem, Enter sends keypad Enter with NumLock off)
+" map OM <CR>
+
+autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
