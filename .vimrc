@@ -103,7 +103,7 @@ set title
 set history=1000
 set undolevels=1000
 set pastetoggle=<F2>
-filetype plugin indent on   " language-dependent indenting 
+filetype plugin indent on " language-dependent indenting
 
 set term=xterm
 set t_Co=256
@@ -119,19 +119,14 @@ let g:syntastic_scala_scalastyle_jar = $HOME . '/work/scalastyle_2.12-1.0.0-batc
 let g:syntastic_scala_scalastyle_config_file = $HOME . '/work/scalastyle-config.xml'
 let g:syntastic_scala_checkers = ['fsc', 'scalac', 'scalastyle']
 
+" nerdcommenter
+let g:NERDSpaceDelims = 1
+
 "set ttyfast
 set mouse=a
 
 "set clipboard=unnamed
 "let g:jedi#show_call_signatures = "2"
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlPMixed'
-let g:ctrlp_max_files=0
-let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-
-if executable('ag')
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
 
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_history_dir = '~/.local/share/fzf-history'
@@ -140,11 +135,20 @@ if executable('fzf')
     map <c-h> :FzfHistory<cr>
     map <c-p> :FzfFiles<cr>
     map <Leader>b :FzfBuffers<cr>
-    command! -bang -nargs=* FzfAg call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
+    command! -bang -nargs=* FzfAg call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0) " prevent search in filenames
     map <Leader>a :FzfAg<cr>
     map <Leader>l :FzfBLines<cr>
     map <Leader>/ :FzfBLines<cr>
     map <Leader>r :FzfRg<cr>
+else
+	let g:ctrlp_map = '<c-p>'
+	let g:ctrlp_cmd = 'CtrlPMixed'
+	let g:ctrlp_max_files=0
+	let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+
+	if executable('ag')
+		let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+	endif
 endif
 
 let g:EasyMotion_do_mapping=0 " disable default mappings
@@ -175,6 +179,7 @@ vmap <c-t> :tabnew<cr>
 "vmap <c-s-tab> :tabprevious<cr>
 "vmap <c-w> :tabclose
 
+nnoremap <delete> dd
 "jump to latest position
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -190,6 +195,7 @@ let g:scala_sort_across_groups=1
 
 " set rust src path for YCM
 let g:ycm_rust_src_path = '/home/tr/work/rust/src'
+let g:syntastic_rust_checkers = [] " remove cargo checker, takes up a lot of time even with no changes on writing
 
 " retain visual selection after indenting:
 vnoremap > >gv
