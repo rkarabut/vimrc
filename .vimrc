@@ -33,7 +33,7 @@ call vundle#begin()
     Plugin 'tpope/vim-surround'
     Plugin 'tpope/vim-repeat'
 	Plugin 'tpope/vim-eunuch'
-    "Plugin 'severin-lemaignan/vim-minimap'
+
     if executable('fzf')
         Plugin 'junegunn/fzf'
         Plugin 'junegunn/fzf.vim'
@@ -82,6 +82,8 @@ set path+=** "matches everything under the base directory tree
 set wildmenu "upgrades tab completion for buffer/file selection
 
 set relativenumber
+
+set clipboard=unnamedplus
 
 "set nocompatible " already set
 set backspace=indent,eol,start  " allow backspace in insert mode
@@ -162,6 +164,13 @@ map <F3> :NERDTreeToggle<CR>
 
 let g:tagbar_autoclose=1
 map <F8> :TagbarToggle<CR>
+
+let g:pencil#wrapModeDefault = 'soft'   
+
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd,text call pencil#init()
+augroup END
 
 vmap <tab> >gv
 vmap <s-tab> <gv
