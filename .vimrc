@@ -77,6 +77,10 @@ call vundle#end()
 
 filetype plugin indent on
 
+set path+=** "matches everything under the base directory tree
+
+set wildmenu "upgrades tab completion for buffer/file selection
+
 "set nocompatible " already set
 set backspace=indent,eol,start  " allow backspace in insert mode
 
