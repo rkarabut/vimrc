@@ -7,73 +7,59 @@ filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
 
-call vundle#begin()
-
-    Plugin 'gmarik/Vundle.vim'
+call plug#begin('~/.vim/plugged')
 
     " add plugins here 
-    Plugin 'valloric/youcompleteme'
-    "Plugin 'lambdalisue/vim-pyenv'
+    Plug 'valloric/youcompleteme'
 
     " Markdown
-    Plugin 'tpope/vim-markdown'
-    Plugin 'junegunn/goyo.vim'
-    "Plugin 'nelstrom/vim-markdown-folding'
+    Plug 'tpope/vim-markdown'
+    Plug 'junegunn/goyo.vim'
 
     " Git
-    Plugin 'tpope/vim-fugitive'
+    Plug 'tpope/vim-fugitive'
 
     " Misc
-    "Plugin 'vim-scripts/vimwiki'
-    Plugin 'scrooloose/nerdtree'
-    Plugin 'scrooloose/nerdcommenter'
-    Plugin 'vim-airline/vim-airline'
-    Plugin 'vim-syntastic/syntastic'
-    "Plugin 'beloglazov/vim-online-thesaurus'  
-    Plugin 'tpope/vim-surround'
-    Plugin 'tpope/vim-repeat'
-	Plugin 'tpope/vim-eunuch'
+    Plug 'scrooloose/nerdtree'
+    Plug 'scrooloose/nerdcommenter'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-syntastic/syntastic'
+    "Plug 'beloglazov/vim-online-thesaurus'  
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-repeat'
+	Plug 'tpope/vim-eunuch'
+	Plug 'michaeljsmith/vim-indent-object'
 
+	" Finders
     if executable('fzf')
-        Plugin 'junegunn/fzf'
-        Plugin 'junegunn/fzf.vim'
+        Plug 'junegunn/fzf'
+        Plug 'junegunn/fzf.vim'
     else
-        Plugin 'ctrlpvim/ctrlp.vim'
+        Plug 'ctrlpvim/ctrlp.vim'
     endif
     
-    " Snippets
-    Plugin 'SirVer/ultisnips'
-    Plugin 'honza/vim-snippets'
-    
-    "Plugin 'w0rp/ale'
-
-    " Clojure
-    "Plugin 'tpope/vim-fireplace'
-    "Plugin 'guns/vim-clojure-static'
-    Plugin 'kien/rainbow_parentheses.vim'
+    Plug 'kien/rainbow_parentheses.vim'
 
     " Scala
-    Plugin 'derekwyatt/vim-scala'
-
-    " Python
-    "Plugin 'python-mode/python-mode'
+    Plug 'derekwyatt/vim-scala'
 
     " Rust
-    Plugin 'rust-lang/rust.vim'
+    Plug 'rust-lang/rust.vim'
 
 	" Writing
-	Plugin 'reedes/vim-pencil'
+	Plug 'reedes/vim-pencil'
 
     " Themes
-    "Plugin 'https://github.com/chriskempson/vim-tomorrow-theme'
-    Plugin 'vim-airline/vim-airline-themes'
-    Plugin 'croaker/mustang-vim'
+    "Plug 'https://github.com/chriskempson/vim-tomorrow-theme'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'croaker/mustang-vim'
 
 	" Nav
-	Plugin 'easymotion/vim-easymotion'
+	Plug 'easymotion/vim-easymotion'
+    Plug 'yuttie/comfortable-motion.vim'
 
-	Plugin 'majutsushi/tagbar'
-call vundle#end()
+	Plug 'majutsushi/tagbar'
+call plug#end()
 
 filetype plugin indent on
 
@@ -84,6 +70,7 @@ set wildmenu "upgrades tab completion for buffer/file selection
 set relativenumber
 
 set clipboard=unnamedplus
+set paste
 
 "set nocompatible " already set
 set backspace=indent,eol,start  " allow backspace in insert mode
@@ -124,10 +111,9 @@ let g:syntastic_scala_checkers = ['fsc', 'scalac', 'scalastyle']
 " nerdcommenter
 let g:NERDSpaceDelims = 1
 
-"set ttyfast
+set ttyfast
 set mouse=a
 
-"set clipboard=unnamed
 "let g:jedi#show_call_signatures = "2"
 
 let g:fzf_command_prefix = 'Fzf'
@@ -142,6 +128,7 @@ if executable('fzf')
     map <Leader>l :FzfBLines<cr>
     map <Leader>/ :FzfBLines<cr>
     map <Leader>r :FzfRg<cr>
+    map <Leader>t :FzfTags<cr>
 else
 	let g:ctrlp_map = '<c-p>'
 	let g:ctrlp_cmd = 'CtrlPMixed'
@@ -189,6 +176,7 @@ vmap <c-t> :tabnew<cr>
 "vmap <c-w> :tabclose
 
 nnoremap <delete> dd
+
 "jump to latest position
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -206,6 +194,9 @@ let g:scala_sort_across_groups=1
 let g:ycm_rust_src_path = '/home/tr/work/rust/src'
 let g:syntastic_rust_checkers = [] " remove cargo checker, takes up a lot of time even with no changes on writing
 
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+
 " retain visual selection after indenting:
 vnoremap > >gv
 vnoremap < <gv
@@ -214,8 +205,6 @@ vnoremap < <gv
 set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0
-
-set paste
 
 au VimEnter * RainbowParenthesesToggle
 
