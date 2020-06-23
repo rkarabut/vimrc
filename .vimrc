@@ -10,7 +10,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call plug#begin('~/.vim/plugged')
 
     " add plugins here 
-    Plug 'valloric/youcompleteme'
+    Plug 'valloric/youcompleteme', {'do': './install.py'}
 
     " Markdown
     Plug 'tpope/vim-markdown'
