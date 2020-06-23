@@ -6,7 +6,7 @@ filetype off
 call plug#begin('~/.vim/plugged')
 
     " add plugins here 
-    Plug 'valloric/youcompleteme', {'do': './install.py --clang-completer --rust-completer --java-completer'}
+    Plug 'valloric/youcompleteme', {'do': './install.py --clangd-completer --rust-completer --java-completer'}
     Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
     Plug 'Shougo/vimproc.vim', {'do': 'make'}
@@ -141,7 +141,7 @@ endif
 let g:EasyMotion_do_mapping=0 " disable default mappings
 let g:EasyMotion_smartcase=1  " enable case-insensitive search
 nmap s <Plug>(easymotion-overwin-f2)
-nmap , <Plug>(easymotion-bd-w)
+nmap <space> <Plug>(easymotion-bd-w)
     
 map <bs> :pop<cr>
 
@@ -188,12 +188,16 @@ autocmd FileType scala autocmd BufWritePre <buffer> %s/\s\+$//e
 let g:scala_sort_across_groups=1
 " autocmd FileType scala autocmd BufWritePre <buffer> :SortScalaImports
 
+let g:ycm_confirm_extra_conf = 0
+
 " set rust src path for YCM
 let g:ycm_rust_src_path = '/home/tr/work/rust/src'
 let g:syntastic_rust_checkers = [] " remove cargo checker, takes up a lot of time even with no changes on writing
 
 nmap <silent> gd :YcmCompleter GoToDefinition<cr>
+nmap <silent> gi :YcmCompleter GoToImprecise<cr>
 nmap <silent> gr :YcmCompleter GoToReferences<cr>
+nmap <silent> gt :YcmCompleter GoTo<cr>
 
 " retain visual selection after indenting:
 vnoremap > >gv
