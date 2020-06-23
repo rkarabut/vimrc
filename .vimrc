@@ -1,16 +1,15 @@
 set exrc
 
-" required for Vundle
-
 set nocompatible
 filetype off
-
-set rtp+=~/.vim/bundle/Vundle.vim
 
 call plug#begin('~/.vim/plugged')
 
     " add plugins here 
-    Plug 'valloric/youcompleteme', {'do': './install.py'}
+    Plug 'valloric/youcompleteme', {'do': './install.py --clang-completer --rust-completer --java-completer'}
+    Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+
+    Plug 'Shougo/vimproc.vim', {'do': 'make'}
 
     " Markdown
     Plug 'tpope/vim-markdown'
@@ -70,7 +69,6 @@ set wildmenu "upgrades tab completion for buffer/file selection
 set relativenumber
 
 set clipboard=unnamedplus
-set paste
 
 "set nocompatible " already set
 set backspace=indent,eol,start  " allow backspace in insert mode
@@ -162,15 +160,15 @@ augroup END
 vmap <tab> >gv
 vmap <s-tab> <gv
 
-map <c-t> :tabnew<cr>
-map <tab> :tabnext<cr>
+"map <c-t> :tabnew<cr>
+"map <tab> :tabnext<cr>
 "map <c-s-tab> :tabprevious<cr>
 "map <c-w> :tabclose
-imap <c-t> :tabnew<cr>
+"imap <c-t> :tabnew<cr>
 "imap <c-tab> :tabnext<cr>
 "imap <c-s-tab> :tabprevious<cr>
 "imap <c-w> :tabclose
-vmap <c-t> :tabnew<cr>
+"vmap <c-t> :tabnew<cr>
 "vmap <c-tab> :tabnext<cr>
 "vmap <c-s-tab> :tabprevious<cr>
 "vmap <c-w> :tabclose
@@ -194,8 +192,8 @@ let g:scala_sort_across_groups=1
 let g:ycm_rust_src_path = '/home/tr/work/rust/src'
 let g:syntastic_rust_checkers = [] " remove cargo checker, takes up a lot of time even with no changes on writing
 
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gd :YcmCompleter GoToDefinition<cr>
+nmap <silent> gr :YcmCompleter GoToReferences<cr>
 
 " retain visual selection after indenting:
 vnoremap > >gv
