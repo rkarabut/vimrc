@@ -143,7 +143,7 @@ let g:EasyMotion_smartcase=1  " enable case-insensitive search
 nmap s <Plug>(easymotion-overwin-f2)
 nmap <space> <Plug>(easymotion-bd-w)
     
-map <bs> :pop<cr>
+map <bs> <c-o><cr>
 
 map <F3> :NERDTreeToggle<CR>
 
@@ -220,4 +220,9 @@ onoremap <M-LeftDrag> <C-C><4-LeftDrag>
 " fixes NerdTree not working in xterm (jumper problem, Enter sends keypad Enter with NumLock off)
 " map OM <CR>
 
+if executable('imcat')
+    map <F9> :term ++curwin imcat %<cr>
+endif
+
 autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
+
