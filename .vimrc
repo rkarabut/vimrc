@@ -230,3 +230,7 @@ endif
 
 autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
 
+" 'fix' for https://github.com/vim/vim/issues/5617 (random [>4;2m appearing)
+let &t_TI=""
+let &t_TE=""
+
