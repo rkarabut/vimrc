@@ -69,7 +69,8 @@ set wildmenu "upgrades tab completion for buffer/file selection
 set relativenumber
 set numberwidth=3 " 3 is enough
 
-set signcolumn=yes " always show the error column, to prevent jarring jumps
+"set signcolumn=yes " always show the error column, to prevent jarring jumps
+set signcolumn=number " better yet, put them in the numbers column
 
 set clipboard=unnamedplus
 
