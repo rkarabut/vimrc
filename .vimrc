@@ -67,6 +67,9 @@ set path+=** "matches everything under the base directory tree
 set wildmenu "upgrades tab completion for buffer/file selection
 
 set relativenumber
+set numberwidth=3 " 3 is enough
+
+set signcolumn=yes " always show the error column, to prevent jarring jumps
 
 set clipboard=unnamedplus
 
@@ -191,7 +194,7 @@ let g:scala_sort_across_groups=1
 let g:ycm_confirm_extra_conf = 0
 
 " set rust src path for YCM
-let g:ycm_rust_src_path = '/home/tr/work/rust/src'
+let g:ycm_rust_src_path = '~/work/rust/src'
 let g:syntastic_rust_checkers = [] " remove cargo checker, takes up a lot of time even with no changes on writing
 
 nmap <silent> gd :YcmCompleter GoToDefinition<cr>
