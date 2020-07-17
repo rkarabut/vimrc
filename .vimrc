@@ -58,6 +58,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'yuttie/comfortable-motion.vim'
 
 	Plug 'majutsushi/tagbar'
+
+    Plug 'francoiscabrol/ranger.vim'
+
+    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 call plug#end()
 
 filetype plugin indent on
@@ -115,8 +119,6 @@ let g:NERDSpaceDelims = 1
 
 set ttyfast
 set mouse=a
-
-"let g:jedi#show_call_signatures = "2"
 
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_history_dir = '~/.local/share/fzf-history'
