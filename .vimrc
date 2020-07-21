@@ -196,8 +196,11 @@ let g:scala_sort_across_groups=1
 
 let g:ycm_confirm_extra_conf = 0
 
-" set rust src path for YCM
-let g:ycm_rust_src_path = '~/work/rust/src'
+" sane preview popup settings
+set previewpopup=height:10,width:60,highlight:PMenuSbar
+set completeopt+=popup
+set completepopup=height:15,width:60,border:off,highlight:PMenuSbar
+
 let g:syntastic_rust_checkers = [] " remove cargo checker, takes up a lot of time even with no changes on writing
 
 nmap <silent> gd :YcmCompleter GoToDefinition<cr>
