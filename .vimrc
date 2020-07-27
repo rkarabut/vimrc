@@ -5,11 +5,14 @@ filetype off
 
 call plug#begin('~/.vim/plugged')
 
-    " add plugins here 
+    " Completion
     Plug 'valloric/youcompleteme', {'do': './install.py --clangd-completer --rust-completer --java-completer'}
     Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+    Plug 'vim-scripts/dbext.vim'
 
-    Plug 'Shougo/vimproc.vim', {'do': 'make'}
+    " Snippets
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
 
     " Markdown
     Plug 'tpope/vim-markdown'
@@ -23,20 +26,20 @@ call plug#begin('~/.vim/plugged')
     Plug 'scrooloose/nerdcommenter'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-syntastic/syntastic'
-    "Plug 'beloglazov/vim-online-thesaurus'  
+    "Plug 'beloglazov/vim-online-thesaurus'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-repeat'
-	Plug 'tpope/vim-eunuch'
-	Plug 'michaeljsmith/vim-indent-object'
+    Plug 'tpope/vim-eunuch'
+    Plug 'michaeljsmith/vim-indent-object'
 
-	" Finders
+    " Finders
     if executable('fzf')
         Plug 'junegunn/fzf'
         Plug 'junegunn/fzf.vim'
     else
         Plug 'ctrlpvim/ctrlp.vim'
     endif
-    
+
     Plug 'kien/rainbow_parentheses.vim'
 
     " Scala
@@ -45,19 +48,19 @@ call plug#begin('~/.vim/plugged')
     " Rust
     Plug 'rust-lang/rust.vim'
 
-	" Writing
-	Plug 'reedes/vim-pencil'
+    " Writing
+    Plug 'reedes/vim-pencil'
 
     " Themes
     "Plug 'https://github.com/chriskempson/vim-tomorrow-theme'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'croaker/mustang-vim'
 
-	" Nav
-	Plug 'easymotion/vim-easymotion'
+    " Nav
+    Plug 'easymotion/vim-easymotion'
     Plug 'yuttie/comfortable-motion.vim'
 
-	Plug 'majutsushi/tagbar'
+    Plug 'majutsushi/tagbar'
 
     Plug 'francoiscabrol/ranger.vim'
 
@@ -134,21 +137,21 @@ if executable('fzf')
     map <Leader>r :FzfRg<cr>
     map <Leader>t :FzfTags<cr>
 else
-	let g:ctrlp_map = '<c-p>'
-	let g:ctrlp_cmd = 'CtrlPMixed'
-	let g:ctrlp_max_files=0
-	let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+    let g:ctrlp_map = '<c-p>'
+    let g:ctrlp_cmd = 'CtrlPMixed'
+    let g:ctrlp_max_files=0
+    let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 
-	if executable('ag')
-		let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-	endif
+    if executable('ag')
+        let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    endif
 endif
 
 let g:EasyMotion_do_mapping=0 " disable default mappings
 let g:EasyMotion_smartcase=1  " enable case-insensitive search
 nmap s <Plug>(easymotion-overwin-f2)
 nmap <space> <Plug>(easymotion-bd-w)
-    
+
 map <bs> <c-o><cr>
 
 map <F3> :NERDTreeToggle<CR>
@@ -156,7 +159,7 @@ map <F3> :NERDTreeToggle<CR>
 let g:tagbar_autoclose=1
 map <F8> :TagbarToggle<CR>
 
-let g:pencil#wrapModeDefault = 'soft'   
+let g:pencil#wrapModeDefault = 'soft'
 
 augroup pencil
   autocmd!
@@ -195,6 +198,12 @@ let g:scala_sort_across_groups=1
 " autocmd FileType scala autocmd BufWritePre <buffer> :SortScalaImports
 
 let g:ycm_confirm_extra_conf = 0
+
+let g:UltiSnipsExpandTrigger = "<c-right>"
+let g:UltiSnipsJumpForwardTrigger = "<c-down>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-up>"
+
+let g:ycm_complete_in_comments = 1
 
 " sane preview popup settings
 set previewpopup=height:10,width:60,highlight:PMenuSbar
@@ -239,3 +248,17 @@ autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
 let &t_TI=""
 let &t_TE=""
 
+" undo across sessions
+let vim_dir = '$HOME/.vim'
+let &runtimepath.=','.vim_dir
+
+if has('persistent_undo')
+    let undo_dir = expand(vim_dir . '/undo')
+
+    call system('mkdir ' . vim_dir)
+    call system('mkdir ' . undo_dir)
+    let &undodir = undo_dir
+    set undofile
+    set undolevels=1000
+    set undoreload=10000    " max lines to save
+endif
