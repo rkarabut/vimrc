@@ -3,6 +3,9 @@ set exrc
 set nocompatible
 filetype off
 
+nnoremap <space> <nop>
+let mapleader=" "
+
 call plug#begin('~/.vim/plugged')
 
     " Completion
@@ -45,9 +48,6 @@ call plug#begin('~/.vim/plugged')
     " Scala
     Plug 'derekwyatt/vim-scala'
 
-    " Rust
-    Plug 'rust-lang/rust.vim'
-
     " Writing
     Plug 'reedes/vim-pencil'
 
@@ -81,7 +81,6 @@ set signcolumn=number " better yet, put them in the numbers column
 
 set clipboard=unnamedplus
 
-"set nocompatible " already set
 set backspace=indent,eol,start  " allow backspace in insert mode
 
 set expandtab
@@ -97,7 +96,6 @@ set smarttab
 set hlsearch
 set incsearch
 set title
-"set visualbell
 set history=1000
 set undolevels=1000
 set pastetoggle=<F2>
@@ -150,7 +148,7 @@ endif
 let g:EasyMotion_do_mapping=0 " disable default mappings
 let g:EasyMotion_smartcase=1  " enable case-insensitive search
 nmap s <Plug>(easymotion-overwin-f2)
-nmap <space> <Plug>(easymotion-bd-w)
+nmap <Leader><space> <Plug>(easymotion-bd-w)
 
 map <bs> <c-o><cr>
 
@@ -166,22 +164,6 @@ augroup pencil
   autocmd FileType markdown,mkd,text call pencil#init()
 augroup END
 
-vmap <tab> >gv
-vmap <s-tab> <gv
-
-"map <c-t> :tabnew<cr>
-"map <tab> :tabnext<cr>
-"map <c-s-tab> :tabprevious<cr>
-"map <c-w> :tabclose
-"imap <c-t> :tabnew<cr>
-"imap <c-tab> :tabnext<cr>
-"imap <c-s-tab> :tabprevious<cr>
-"imap <c-w> :tabclose
-"vmap <c-t> :tabnew<cr>
-"vmap <c-tab> :tabnext<cr>
-"vmap <c-s-tab> :tabprevious<cr>
-"vmap <c-w> :tabclose
-
 nnoremap <delete> dd
 
 "jump to latest position
@@ -193,9 +175,6 @@ endif
 
 " remove end-of-line whitespace in Scala
 autocmd FileType scala autocmd BufWritePre <buffer> %s/\s\+$//e
-
-let g:scala_sort_across_groups=1
-" autocmd FileType scala autocmd BufWritePre <buffer> :SortScalaImports
 
 let g:ycm_confirm_extra_conf = 0
 
