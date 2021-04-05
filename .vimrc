@@ -24,12 +24,10 @@ call plug#begin('~/.vim/plugged')
 
     " Git
     Plug 'tpope/vim-fugitive'
+    Plug 'airblade/vim-gitgutter'
 
     " Rust
     Plug 'rust-lang/rust.vim'
-
-    " Scala
-    Plug 'derekwyatt/vim-scala'
 
     " Misc
     Plug 'scrooloose/nerdtree'
@@ -122,10 +120,6 @@ set laststatus=2    " status bar always enabled
 let g:airline#extensions#wordcount#enabled = 1
 let g:airline_powerline_fonts = 1
 
-let g:syntastic_scala_scalastyle_jar = $HOME . '/work/scalastyle_2.12-1.0.0-batch.jar'
-let g:syntastic_scala_scalastyle_config_file = $HOME . '/work/scalastyle-config.xml'
-let g:syntastic_scala_checkers = ['fsc', 'scalac', 'scalastyle']
-
 " nerdcommenter
 let g:NERDSpaceDelims = 1
 
@@ -185,7 +179,7 @@ map <F8> :TagbarToggle<CR>
 
 map <F4> :MinimapToggle<CR>
 
-nmap <Leader>` :below terminal
+nmap <Leader>` :below terminal<CR>
 set termwinsize=10x0
 
 let g:pencil#wrapModeDefault = 'soft'
@@ -212,9 +206,6 @@ if has("autocmd")
 endif
 
 ":autocmd VimEnter * :AirlineRefresh
-
-" remove end-of-line whitespace in Scala
-autocmd FileType scala autocmd BufWritePre <buffer> %s/\s\+$//e
 
 let g:ycm_confirm_extra_conf = 0
 
@@ -296,3 +287,18 @@ endfunction
 
 " quickly close cargo output terminal buffer
 autocmd TerminalOpen * if &buftype ==# 'terminal'|nnoremap <buffer>q :q<CR>|endif
+
+" NERDTree follow buffer (based on
+" https://codeyarns.com/tech/2014-05-05-how-to-highlight-current-file-in-nerdtree.html)
+function! IsNERDTreeOpen()
+  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+endfunction
+
+function! NERDTreeFollow()
+  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
+    NERDTreeFind
+    wincmd p
+  endif
+endfunction
+
+autocmd BufRead * call NERDTreeFollow()
