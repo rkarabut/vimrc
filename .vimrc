@@ -43,6 +43,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'luochen1990/rainbow'
     Plug 'Valloric/MatchTagAlways'
     Plug 'mhinz/vim-startify'
+    Plug 'vimwiki/vimwiki'
 
     " Finders
     if executable('fzf')
@@ -70,8 +71,6 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 call plug#end()
-
-filetype plugin indent on
 
 set path+=** "matches everything under the base directory tree
 
@@ -164,7 +163,7 @@ nmap s <Plug>(easymotion-overwin-f2)
 nmap <Leader><space> <Plug>(easymotion-bd-w)
 
 map <Leader>q :qa!<CR>
-map <Leader>w <c-w><c-w>
+map <Leader><Tab> <c-w><c-w>
 map <Leader><Left> :wincmd h<CR>
 map <Leader><Right> :wincmd l<CR>
 map <Leader><Up> :wincmd k<CR>
@@ -208,6 +207,10 @@ endif
 ":autocmd VimEnter * :AirlineRefresh
 
 let g:ycm_confirm_extra_conf = 0
+let g:ycm_filetype_blacklist = {
+    \ 'ycm_nofiletype': 1
+    \ }
+let g:ycm_key_list_stop_completion = ['<C-y>', '<CR>']
 
 let g:UltiSnipsExpandTrigger = "<c-right>"
 let g:UltiSnipsJumpForwardTrigger = "<c-down>"
@@ -239,6 +242,9 @@ nmap <silent> gd :botright vertical YcmCompleter GoToDefinition<cr>
 nmap <silent> gi :YcmCompleter GoToImprecise<cr>
 nmap <silent> gr :YcmCompleter GoToReferences<cr>
 nmap <silent> gt :YcmCompleter GoTo<cr>
+
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " retain visual selection after indenting:
 vnoremap > >gv
