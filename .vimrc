@@ -13,6 +13,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
     Plug 'vim-scripts/dbext.vim'
     Plug 'mattn/emmet-vim'
+    " disable lcn for now, warning highlighting is a bit weird
+    "Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
 
     " Snippets
     Plug 'SirVer/ultisnips'
@@ -44,6 +46,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'Valloric/MatchTagAlways'
     Plug 'mhinz/vim-startify'
     Plug 'vimwiki/vimwiki'
+    Plug 'ntpeters/vim-better-whitespace'
 
     " Finders
     if executable('fzf')
@@ -109,6 +112,9 @@ filetype plugin indent on " language-dependent indenting
 " copy more lines between files
 set viminfo='100,<9999,s100
 
+" lower delay before showing hover popup
+set updatetime=1000
+
 set term=xterm
 set t_Co=256
 colorscheme mustang
@@ -142,7 +148,6 @@ if executable('fzf')
     map <Leader>b :FzfBuffers<cr>
     command! -bang -nargs=* FzfAg call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0) " prevent search in filenames
     map <Leader>a :FzfAg<cr>
-    map <Leader>l :FzfBLines<cr>
     map <Leader>/ :FzfBLines<cr>
     map <Leader>r :FzfRg<cr>
     map <Leader>t :FzfTags<cr>
@@ -156,6 +161,12 @@ else
         let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
     endif
 endif
+
+let g:LanguageClient_serverCommands = {
+\ 'rust': ['rust-analyzer'],
+\ }
+map <Leader>l <Plug>(lcn-menu)
+map K <Plug>(lcn-hover)
 
 let g:EasyMotion_do_mapping=0 " disable default mappings
 let g:EasyMotion_smartcase=1  " enable case-insensitive search
@@ -206,17 +217,16 @@ endif
 
 ":autocmd VimEnter * :AirlineRefresh
 
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_filetype_blacklist = {
-    \ 'ycm_nofiletype': 1
-    \ }
-let g:ycm_key_list_stop_completion = ['<C-y>', '<CR>']
-
 let g:UltiSnipsExpandTrigger = "<c-right>"
 let g:UltiSnipsJumpForwardTrigger = "<c-down>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-up>"
 
 let g:ycm_complete_in_comments = 1
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_filetype_blacklist = {
+    \ 'ycm_nofiletype': 1
+    \ }
+let g:ycm_key_list_stop_completion = ['<C-y>', '<CR>']
 
 if executable('rust-analyzer')
     let g:ycm_language_server =
@@ -242,6 +252,7 @@ nmap <silent> gd :botright vertical YcmCompleter GoToDefinition<cr>
 nmap <silent> gi :YcmCompleter GoToImprecise<cr>
 nmap <silent> gr :YcmCompleter GoToReferences<cr>
 nmap <silent> gt :YcmCompleter GoTo<cr>
+nmap <silent> <leader>k :YcmCompleter GetType<cr>
 
 let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
@@ -288,7 +299,7 @@ autocmd User StartifyReady call ToggleSidebars()
 function! ToggleSidebars()
     NERDTreeToggle
     wincmd p
-    MinimapToggle
+    "MinimapToggle
 endfunction
 
 " quickly close cargo output terminal buffer
@@ -301,10 +312,12 @@ function! IsNERDTreeOpen()
 endfunction
 
 function! NERDTreeFollow()
-  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
+  if &modifiable && (&filetype != "gitcommit") && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
     NERDTreeFind
     wincmd p
   endif
 endfunction
 
 autocmd BufRead * call NERDTreeFollow()
+
+let g:better_whitespace_enabled=0
