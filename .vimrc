@@ -13,7 +13,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
     Plug 'vim-scripts/dbext.vim'
     Plug 'mattn/emmet-vim'
-    " disable lcn for now, warning highlighting is a bit weird
     "Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
 
     " Snippets
@@ -47,6 +46,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'mhinz/vim-startify'
     Plug 'vimwiki/vimwiki'
     Plug 'ntpeters/vim-better-whitespace'
+    Plug 'dbeniamine/cheat.sh-vim'
 
     " Finders
     if executable('fzf')
@@ -180,7 +180,9 @@ map <Leader><Right> :wincmd l<CR>
 map <Leader><Up> :wincmd k<CR>
 map <Leader><Down> :wincmd j<CR>
 
-map <bs> <c-o><cr>
+nnoremap <bs> <c-o>
+nnoremap <Leader>, <c-o>
+nnoremap <Leader>. <c-i>
 
 map <F3> :NERDTreeToggle<CR>
 
@@ -224,9 +226,11 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-up>"
 let g:ycm_complete_in_comments = 1
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_filetype_blacklist = {
-    \ 'ycm_nofiletype': 1
+    \ 'ycm_nofiletype': 1,
+    \ 'nerdtree': 1,
     \ }
 let g:ycm_key_list_stop_completion = ['<C-y>', '<CR>']
+let g:ycm_auto_hover = ''
 
 if executable('rust-analyzer')
     let g:ycm_language_server =
@@ -252,7 +256,8 @@ nmap <silent> gd :botright vertical YcmCompleter GoToDefinition<cr>
 nmap <silent> gi :YcmCompleter GoToImprecise<cr>
 nmap <silent> gr :YcmCompleter GoToReferences<cr>
 nmap <silent> gt :YcmCompleter GoTo<cr>
-nmap <silent> <leader>k :YcmCompleter GetType<cr>
+nmap <silent> <leader>k <Plug>(YCMHover)
+nmap <silent> K <Plug>(YCMHover)
 
 let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
