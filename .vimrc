@@ -40,7 +40,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-eunuch'
     Plug 'michaeljsmith/vim-indent-object'
-    Plug 'wfxr/minimap.vim'
+    "Plug 'wfxr/minimap.vim'
     Plug 'luochen1990/rainbow'
     Plug 'Valloric/MatchTagAlways'
     Plug 'mhinz/vim-startify'
@@ -85,7 +85,7 @@ set numberwidth=3 " 3 is enough
 "set signcolumn=yes " always show the error column, to prevent jarring jumps
 set signcolumn=number " better yet, put them in the numbers column
 
-set clipboard=unnamedplus
+set clipboard=unnamed
 
 set backspace=indent,eol,start  " allow backspace in insert mode
 
@@ -175,6 +175,7 @@ nmap <Leader><space> <Plug>(easymotion-bd-w)
 
 map <Leader>q :qa!<CR>
 map <Leader><Tab> <c-w><c-w>
+map <Leader>z <c-w><c-w>
 map <Leader><Left> :wincmd h<CR>
 map <Leader><Right> :wincmd l<CR>
 map <Leader><Up> :wincmd k<CR>
@@ -231,18 +232,6 @@ let g:ycm_filetype_blacklist = {
     \ }
 let g:ycm_key_list_stop_completion = ['<C-y>', '<CR>']
 let g:ycm_auto_hover = ''
-
-if executable('rust-analyzer')
-    let g:ycm_language_server =
-    \ [
-    \   {
-    \     'name': 'rust',
-    \     'cmdline': ['rust-analyzer'],
-    \     'filetypes': ['rust'],
-    \     'project_root_files': ['Cargo.toml']
-    \   }
-    \ ]
-endif
 
 " sane preview popup settings
 set previewpopup=height:10,width:60,highlight:PMenuSbar
@@ -326,3 +315,17 @@ endfunction
 autocmd BufRead * call NERDTreeFollow()
 
 let g:better_whitespace_enabled=0
+
+nnoremap <leader>n :below new<cr>
+
+let g:startify_change_to_dir = 0
+let g:startify_change_to_vcs_root = 1
+
+
+nnoremap <cr> ciw
+nnoremap <leader>i cw
+
+nnoremap <leader>- <PageUp>
+nnoremap <leader>= <PageDown>
+
+nnoremap <leader>x :b#<cr>
