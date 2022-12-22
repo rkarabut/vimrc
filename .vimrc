@@ -10,7 +10,8 @@ call plug#begin('~/.vim/plugged')
 
     " Completion
     Plug 'valloric/youcompleteme', {'do': './install.py --clangd-completer --rust-completer'}
-    Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+    "Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+    "Plug 'dense-analysis/ale'
     Plug 'vim-scripts/dbext.vim'
     Plug 'mattn/emmet-vim'
     "Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
@@ -73,6 +74,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'francoiscabrol/ranger.vim'
 
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
+    "Plug 'pseewald/vim-anyfold'
 call plug#end()
 
 set path+=** "matches everything under the base directory tree
@@ -162,11 +165,13 @@ else
     endif
 endif
 
-let g:LanguageClient_serverCommands = {
-\ 'rust': ['rust-analyzer'],
-\ }
-map <Leader>l <Plug>(lcn-menu)
-map K <Plug>(lcn-hover)
+let g:ale_completion_enabled = 1
+let g:ale_floating_preview = 1
+let g:ale_linters = {
+\  'rust': ['analyzer'],
+\}
+"map <Leader>l <Plug>(lcn-menu)
+"map K <Plug>(lcn-hover)
 
 let g:EasyMotion_do_mapping=0 " disable default mappings
 let g:EasyMotion_smartcase=1  " enable case-insensitive search
@@ -182,8 +187,9 @@ map <Leader><Up> :wincmd k<CR>
 map <Leader><Down> :wincmd j<CR>
 
 nnoremap <bs> <c-o>
-nnoremap <Leader>, <c-o>
-nnoremap <Leader>. <c-i>
+
+nmap <Leader>, <c-o>
+nmap <Leader>. <c-i>
 
 map <F3> :NERDTreeToggle<CR>
 
@@ -193,7 +199,7 @@ map <F8> :TagbarToggle<CR>
 map <F4> :MinimapToggle<CR>
 
 nmap <Leader>` :below terminal<CR>
-set termwinsize=10x0
+set termwinsize=20x0
 
 let g:pencil#wrapModeDefault = 'soft'
 
@@ -211,7 +217,7 @@ let g:mta_filetypes = {
     \ 'rust' : 1,
     \}
 
-nnoremap <delete> dd
+nnoremap <delete> "_dd
 
 "jump to latest position
 if has("autocmd")
@@ -242,10 +248,12 @@ let g:syntastic_rust_checkers = [] " remove cargo checker, takes up a lot of tim
 let g:cargo_shell_command_runner = 'below terminal'
 
 nmap <silent> gd :botright vertical YcmCompleter GoToDefinition<cr>
-nmap <silent> gi :YcmCompleter GoToImprecise<cr>
+"nmap <silent> gd :botright vertical ALEGoToDefinition<cr>
+nmap <silent> gt :YcmCompleter GoToType<cr>
 nmap <silent> gr :YcmCompleter GoToReferences<cr>
-nmap <silent> gt :YcmCompleter GoTo<cr>
+nmap <silent> gc :YcmCompleter GoToCallers<cr>
 nmap <silent> <leader>k <Plug>(YCMHover)
+"nmap <silent> <leader>k :ALEHover<cr>
 nmap <silent> K <Plug>(YCMHover)
 
 let g:vimwiki_list = [{'path': '~/vimwiki/',
@@ -307,25 +315,31 @@ endfunction
 
 function! NERDTreeFollow()
   if &modifiable && (&filetype != "gitcommit") && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
-    NERDTreeFind
+    NERDTreeCWD
     wincmd p
   endif
 endfunction
 
-autocmd BufRead * call NERDTreeFollow()
+autocmd BufEnter * call NERDTreeFollow()
 
 let g:better_whitespace_enabled=0
 
 nnoremap <leader>n :below new<cr>
 
+" startify
 let g:startify_change_to_dir = 0
 let g:startify_change_to_vcs_root = 1
 
+" AnyFold
+"autocmd Filetype * AnyFoldActivate
+"let g:anyfold_fold_comments=1
+"set foldlevel=0
 
-nnoremap <cr> ciw
 nnoremap <leader>i cw
 
 nnoremap <leader>- <PageUp>
 nnoremap <leader>= <PageDown>
 
 nnoremap <leader>x :b#<cr>
+
+nnoremap <leader>c :Cargo check<cr>
