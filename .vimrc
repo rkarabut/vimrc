@@ -45,7 +45,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'luochen1990/rainbow'
     Plug 'Valloric/MatchTagAlways'
     Plug 'mhinz/vim-startify'
-    Plug 'vimwiki/vimwiki'
+    "Plug 'vimwiki/vimwiki'
     Plug 'ntpeters/vim-better-whitespace'
     Plug 'dbeniamine/cheat.sh-vim'
 
@@ -58,7 +58,7 @@ call plug#begin('~/.vim/plugged')
     endif
 
     " Writing
-    Plug 'reedes/vim-pencil'
+    "Plug 'reedes/vim-pencil'
 
     " Themes
     Plug 'vim-airline/vim-airline-themes'
@@ -201,12 +201,12 @@ map <F4> :MinimapToggle<CR>
 nmap <Leader>` :below terminal<CR>
 set termwinsize=20x0
 
-let g:pencil#wrapModeDefault = 'soft'
-
-augroup pencil
-  autocmd!
-  autocmd FileType markdown,mkd,text call pencil#init()
-augroup END
+"let g:pencil#wrapModeDefault = 'soft'
+"
+"augroup pencil
+"  autocmd!
+"  autocmd FileType markdown,mkd,text call pencil#init()
+"augroup END
 
 " let MatchTagAlways work with Rust files
 let g:mta_filetypes = {
