@@ -31,6 +31,9 @@ call plug#begin('~/.vim/plugged')
     " Rust
     Plug 'rust-lang/rust.vim'
 
+    " Move
+    Plug '0xmovses/move.vim'
+
     " Misc
     Plug 'scrooloose/nerdtree'
     Plug 'scrooloose/nerdcommenter'
@@ -88,7 +91,7 @@ set numberwidth=3 " 3 is enough
 "set signcolumn=yes " always show the error column, to prevent jarring jumps
 set signcolumn=number " better yet, put them in the numbers column
 
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 set backspace=indent,eol,start  " allow backspace in insert mode
 
