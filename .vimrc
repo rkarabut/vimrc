@@ -54,7 +54,7 @@ call plug#begin('~/.vim/plugged')
 
     " Finders
     if executable('fzf')
-        Plug 'junegunn/fzf'
+        Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
         Plug 'junegunn/fzf.vim'
     else
         Plug 'ctrlpvim/ctrlp.vim'
