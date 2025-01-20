@@ -6,6 +6,8 @@ filetype off
 nnoremap <space> <nop>
 let mapleader=" "
 
+set scrolloff=4
+
 call plug#begin('~/.vim/plugged')
 
     " Completion
@@ -79,6 +81,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
     "Plug 'pseewald/vim-anyfold'
+    Plug 'gergap/vim-ollama'
 call plug#end()
 
 set path+=** "matches everything under the base directory tree
@@ -346,3 +349,6 @@ nnoremap <leader>= <PageDown>
 nnoremap <leader>x :b#<cr>
 
 nnoremap <leader>c :Cargo check<cr>
+
+let g:ollama_host = 'http://localhost:11434'
+let g:ollama_model = 'codellama:13b-code'
