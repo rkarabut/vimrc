@@ -81,7 +81,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
     "Plug 'pseewald/vim-anyfold'
-    Plug 'gergap/vim-ollama'
 call plug#end()
 
 set path+=** "matches everything under the base directory tree
